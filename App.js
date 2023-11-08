@@ -54,6 +54,22 @@ class PiedraPapelTijeraApp extends Component {
             width={100}
             aspectRatio={1}
           />
+          <Text style={styles.texto}>VS</Text>
+          <IconButton
+            onPress={() => this.jugar("spock")}
+            imageSource={require("./assets/spock.png")}
+            width={90}
+            aspectRatio={0.7}
+          />
+        </View>
+        <Text style={styles.texto}>GANASTE LA RONDA</Text>
+        <View style={[styles.flexRow, { marginBottom: 90 }]}>
+          <IconButton
+            onPress={() => this.jugar("piedra")}
+            imageSource={require("./assets/piedra.png")}
+            width={100}
+            aspectRatio={1}
+          />
           <IconButton
             onPress={() => this.jugar("lagarto")}
             imageSource={require("./assets/lagarto.png")}
@@ -79,9 +95,6 @@ class PiedraPapelTijeraApp extends Component {
             aspectRatio={2}
           />
         </View>
-        <Text style={{ fontSize: 40, fontWeight: "bold", marginBottom: 20 }}>
-          GANASTE LA RONDA
-        </Text>
       </View>
     );
   }
@@ -93,18 +106,22 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
+    backgroundColor: "#EDEDF2",
   },
   header: {
     flex: 1,
     flexDirection: "row",
+    marginTop: 40,
   },
   flexRow: {
     flex: 1,
     flexDirection: "row",
+    gap: 50,
     flexWrap: "wrap",
     alignItems: "center",
     justifyContent: "center",
   },
+  texto: { fontSize: 40, fontWeight: "bold", marginBottom: 70 },
 });
 
 export default PiedraPapelTijeraApp;
