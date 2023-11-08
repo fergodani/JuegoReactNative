@@ -24,6 +24,7 @@ class PiedraPapelTijeraApp extends Component {
   }
 
   jugar(opcionUsuario) {
+    if (this.state.isJuegoFinalizado) return;
     const opciones = ["piedra", "papel", "tijera", "lagarto", "spock"];
     const opcionAleatoria = opciones[Math.floor(Math.random() * 3)];
     this.setState({ optionJugador: this.getOpciones(opcionUsuario) });
@@ -53,13 +54,16 @@ class PiedraPapelTijeraApp extends Component {
       this.setState({ isFinRonda: true });
     } else {
       this.setState({ isJuegoFinalizado: true });
-      if (this.state.scoreJugador > this.state.scoreCPU) {
-        this.setState({ resultado: "GANASTE LA PARTIDA" });
-      } else if (this.state.scoreJugador < this.state.scoreCPU) {
-        this.setState({ resultado: "PERDISTE LA PARTIDA" });
-      } else {
-        this.setState({ resultado: "PARTIDA EMPATADA" });
-      }
+      setTimeout(() => {
+        
+        if (this.state.scoreJugador > this.state.scoreCPU) {
+          this.setState({ resultado: "GANASTE LA PARTIDA" });
+        } else if (this.state.scoreJugador < this.state.scoreCPU) {
+          this.setState({ resultado: "PERDISTE LA PARTIDA" });
+        } else {
+          this.setState({ resultado: "PARTIDA EMPATADA" });
+        }
+      }, 1500);
     }
   }
 
@@ -74,7 +78,7 @@ class PiedraPapelTijeraApp extends Component {
       case "papel":
         return {
           source: require("./assets/papel.png"),
-          width: 155,
+          width: 140,
           aspectRatio: 2,
         };
       case "tijera":
@@ -124,43 +128,44 @@ class PiedraPapelTijeraApp extends Component {
         <View style={[styles.flexRow, { gap: 30 }]}>
           {this.state.isFinRonda && (
             <IconButton
-              onPress={() => this.jugar("piedra")}
+              onPress={() => {}}
               properties={this.state.optionJugador}
             />
           )}
           <Text style={[styles.texto]}>VS</Text>
           {this.state.isFinRonda && (
-            <IconButton
-              onPress={() => this.jugar("spock")}
-              properties={this.state.optionCPU}
-            />
+            <IconButton onPress={() => {}} properties={this.state.optionCPU} />
           )}
         </View>
         <Text style={styles.texto}>{this.state.resultado}</Text>
-        {this.state.isJuegoFinalizado && (
-          <Button action={() => this.reiniciarJuego()} texto="Reiniciar" />
-        )}
+
         <View style={[styles.flexRow, { marginBottom: 90 }]}>
-          <IconButton
-            onPress={() => this.jugar("piedra")}
-            properties={this.getOpciones("piedra")}
-          />
-          <IconButton
-            onPress={() => this.jugar("lagarto")}
-            properties={this.getOpciones("lagarto")}
-          />
-          <IconButton
-            onPress={() => this.jugar("spock")}
-            properties={this.getOpciones("spock")}
-          />
-          <IconButton
-            onPress={() => this.jugar("papel")}
-            properties={this.getOpciones("papel")}
-          />
-          <IconButton
-            onPress={() => this.jugar("tijera")}
-            properties={this.getOpciones("tijera")}
-          />
+          {this.state.isJuegoFinalizado ? (
+            <Button action={() => this.reiniciarJuego()} texto="Reiniciar" />
+          ) : (
+            <>
+              <IconButton
+                onPress={() => this.jugar("piedra")}
+                properties={this.getOpciones("piedra")}
+              />
+              <IconButton
+                onPress={() => this.jugar("lagarto")}
+                properties={this.getOpciones("lagarto")}
+              />
+              <IconButton
+                onPress={() => this.jugar("spock")}
+                properties={this.getOpciones("spock")}
+              />
+              <IconButton
+                onPress={() => this.jugar("papel")}
+                properties={this.getOpciones("papel")}
+              />
+              <IconButton
+                onPress={() => this.jugar("tijera")}
+                properties={this.getOpciones("tijera")}
+              />
+            </>
+          )}
         </View>
         <Text style={{ fontSize: 20, marginBottom: 20 }}>
           Ronda: {this.state.numRonda}
