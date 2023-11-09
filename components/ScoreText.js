@@ -13,6 +13,7 @@ const ScoreText = ({ value, text }) => {
 export default ScoreText;
 
 const styles = StyleSheet.create({
+    
     flexColumn: {
         flex: 1,
         flexDirection: 'column',
